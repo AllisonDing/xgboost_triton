@@ -1,0 +1,107 @@
+################################################################################
+# Fraud Detection Stack
+# =====================
+#
+# Services
+# --------
+#   triton    NVIDIA Triton Inference Server (GPU)
+#             - Serves the XGBoost model from data/deployment/triton_model_repository
+#             - HTTP  :8000  (tritonclient, curl)
+#             - gRPC  :8001  (tritonclient grpc)
+#             - Metrics :8002  (Prometheus)
+#
+#   api       FastAPI backend
+#             - Preprocesses features and proxies requests to Triton
+#             - Exposes REST API on :8080
+#
+#   frontend  nginx serving the HTML/JS app
+#             - Serves static files on :3000
+#             - Proxies /api/* → api:8080
+#
+# Startup order:  triton → api → frontend
+#
+# Prerequisites
+# -------------
+#   1. Run Part_6_supervised_learning.ipynb  → produces data/models/
+#                                               and data/features/
+#   2. Run Part_7_ml_inference.ipynb         → produces
+#                                               data/deployment/triton_model_repository/
+#   3. docker compose up
+#
+# Access
+# ------
+#   Frontend   http://localhost:3000
+#   API docs   http://localhost:3000/api/docs
+#   Triton     http://localhost:8000/v2/health/ready
+#   Metrics    http://localhost:8002/metrics
+################################################################################
+
+services:
+
+  # ── Triton Inference Server ─────────────────────────────────────────────────
+  triton:
+    image: nvcr.io/nvidia/tritonserver:24.09-py3
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    volumes:
+      - ./data/deployment/triton_model_repository:/models:ro
+    command: >
+      tritonserver
+      --model-repository=/models
+      --log-verbose=0
+      --http-port=8000
+      --grpc-port=8001
+      --metrics-port=8002
+    ports:
+      - "8000:8000"
+      - "8001:8001"
+      - "8002:8002"
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8000/v2/health/ready"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 30s
+    restart: unless-stopped
+
+  # ── FastAPI backend ─────────────────────────────────────────────────────────
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    volumes:
+      - ./data:/data:ro    # test_features.parquet + feature_cols.txt
+    environment:
+      FRAUD_TRITON_HOST: triton
+      FRAUD_TRITON_HTTP_PORT: "8000"
+      FRAUD_MODEL_NAME: fraud_detection_xgboost
+      FRAUD_FEATURES_PATH: /data/features/test_features.parquet
+      FRAUD_FEATURE_COLS_PATH: /data/features/feature_cols.txt
+    ports:
+      - "8080:8080"
+    depends_on:
+      triton:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-sf", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    restart: unless-stopped
+
+  # ── Frontend (nginx) ────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped

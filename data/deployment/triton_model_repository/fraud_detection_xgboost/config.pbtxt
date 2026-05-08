@@ -1,0 +1,31 @@
+name: "fraud_detection_xgboost"
+backend: "python"
+max_batch_size: 1024
+
+input [
+  {
+    name: "input_features"
+    data_type: TYPE_FP32
+    dims: [466]
+  }
+]
+
+output [
+  {
+    name: "fraud_probability"
+    data_type: TYPE_FP32
+    dims: [1]
+  }
+]
+
+instance_group [
+  {
+    count: 1
+    kind: KIND_GPU
+  }
+]
+
+dynamic_batching {
+  preferred_batch_size: [128, 256, 512, 1024]
+  max_queue_delay_microseconds: 1000
+}

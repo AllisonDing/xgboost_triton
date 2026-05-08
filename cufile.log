@@ -1,0 +1,72 @@
+ 03-05-2026 15:52:52:394 [pid=3955131 tid=3955131] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 03-05-2026 15:52:52:395 [pid=3955131 tid=3955131] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 03-05-2026 15:52:52:396 [pid=3955131 tid=3955131] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 03-05-2026 15:52:52:504 [pid=3955131 tid=3955131] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 03-05-2026 15:52:52:504 [pid=3955131 tid=3955131] ERROR  cufio-fs:68 mount options not specified for device in mount table /dev/dm-1
+ 03-05-2026 15:52:52:504 [pid=3955131 tid=3955131] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 03-05-2026 15:52:52:504 [pid=3955131 tid=3955131] NOTICE  cufio-fs:456 dumping volume attributes: DEVNAME:/dev/dm-1,ID_FS_TYPE:ext4,ID_FS_USAGE:filesystem,fsid:c4b1bc5b7d0d2c1c0x,numa_node:-1,queue/logical_block_size:4096,
+ 03-05-2026 15:52:52:504 [pid=3955131 tid=3955131] NOTICE  cufio:285 cuFileHandleRegister GDS not supported or disabled by config, using cuFile posix read/write with compat mode enabled
+ 03-05-2026 16:51:38:620 [pid=4142005 tid=4142005] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 03-05-2026 16:51:38:621 [pid=4142005 tid=4142005] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 03-05-2026 16:51:38:622 [pid=4142005 tid=4142005] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 03-05-2026 16:51:38:732 [pid=4142005 tid=4142005] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 03-05-2026 16:51:38:733 [pid=4142005 tid=4142005] ERROR  cufio-fs:68 mount options not specified for device in mount table /dev/dm-1
+ 03-05-2026 16:51:38:733 [pid=4142005 tid=4142005] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 03-05-2026 16:51:38:733 [pid=4142005 tid=4142005] NOTICE  cufio-fs:456 dumping volume attributes: DEVNAME:/dev/dm-1,ID_FS_TYPE:ext4,ID_FS_USAGE:filesystem,fsid:c4b1bc5b7d0d2c1c0x,numa_node:-1,queue/logical_block_size:4096,
+ 03-05-2026 16:51:38:733 [pid=4142005 tid=4142005] NOTICE  cufio:285 cuFileHandleRegister GDS not supported or disabled by config, using cuFile posix read/write with compat mode enabled
+ 04-05-2026 13:40:11:37 [pid=3179323 tid=3179323] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 04-05-2026 13:40:11:38 [pid=3179323 tid=3179323] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 04-05-2026 13:40:11:38 [pid=3179323 tid=3179323] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 04-05-2026 13:40:11:145 [pid=3179323 tid=3179323] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 04-05-2026 13:40:11:145 [pid=3179323 tid=3179323] ERROR  cufio-fs:68 mount options not specified for device in mount table /dev/dm-1
+ 04-05-2026 13:40:11:145 [pid=3179323 tid=3179323] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 04-05-2026 13:40:11:145 [pid=3179323 tid=3179323] NOTICE  cufio-fs:456 dumping volume attributes: DEVNAME:/dev/dm-1,ID_FS_TYPE:ext4,ID_FS_USAGE:filesystem,fsid:c4b1bc5b7d0d2c1c0x,numa_node:-1,queue/logical_block_size:4096,
+ 04-05-2026 13:40:11:145 [pid=3179323 tid=3179323] NOTICE  cufio:285 cuFileHandleRegister GDS not supported or disabled by config, using cuFile posix read/write with compat mode enabled
+ 04-05-2026 14:04:54:992 [pid=3253316 tid=3253316] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 04-05-2026 14:04:54:993 [pid=3253316 tid=3253316] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 04-05-2026 14:04:54:994 [pid=3253316 tid=3253316] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 04-05-2026 14:04:55:100 [pid=3253316 tid=3253316] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 04-05-2026 14:04:55:100 [pid=3253316 tid=3253316] ERROR  cufio-fs:68 mount options not specified for device in mount table /dev/dm-1
+ 04-05-2026 14:04:55:100 [pid=3253316 tid=3253316] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 04-05-2026 14:04:55:100 [pid=3253316 tid=3253316] NOTICE  cufio-fs:456 dumping volume attributes: DEVNAME:/dev/dm-1,ID_FS_TYPE:ext4,ID_FS_USAGE:filesystem,fsid:c4b1bc5b7d0d2c1c0x,numa_node:-1,queue/logical_block_size:4096,
+ 04-05-2026 14:04:55:100 [pid=3253316 tid=3253316] NOTICE  cufio:285 cuFileHandleRegister GDS not supported or disabled by config, using cuFile posix read/write with compat mode enabled
+ 04-05-2026 15:01:33:649 [pid=3375814 tid=3375814] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 04-05-2026 15:01:33:650 [pid=3375814 tid=3375814] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 04-05-2026 15:01:33:650 [pid=3375814 tid=3375814] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 04-05-2026 15:01:33:757 [pid=3375814 tid=3375814] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 04-05-2026 15:01:33:757 [pid=3375814 tid=3375814] ERROR  cufio-fs:68 mount options not specified for device in mount table /dev/dm-1
+ 04-05-2026 15:01:33:757 [pid=3375814 tid=3375814] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 04-05-2026 15:01:33:757 [pid=3375814 tid=3375814] NOTICE  cufio-fs:456 dumping volume attributes: DEVNAME:/dev/dm-1,ID_FS_TYPE:ext4,ID_FS_USAGE:filesystem,fsid:c4b1bc5b7d0d2c1c0x,numa_node:-1,queue/logical_block_size:4096,
+ 04-05-2026 15:01:33:757 [pid=3375814 tid=3375814] NOTICE  cufio:285 cuFileHandleRegister GDS not supported or disabled by config, using cuFile posix read/write with compat mode enabled
+ 04-05-2026 16:45:05:41 [pid=3405125 tid=3405125] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 04-05-2026 16:45:05:44 [pid=3405125 tid=3405125] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 04-05-2026 16:45:05:44 [pid=3405125 tid=3405125] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 04-05-2026 16:45:05:151 [pid=3405125 tid=3405125] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 04-05-2026 16:45:05:151 [pid=3405125 tid=3405125] ERROR  cufio-fs:68 mount options not specified for device in mount table /dev/dm-1
+ 04-05-2026 16:45:05:151 [pid=3405125 tid=3405125] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 04-05-2026 16:45:05:151 [pid=3405125 tid=3405125] NOTICE  cufio-fs:456 dumping volume attributes: DEVNAME:/dev/dm-1,ID_FS_TYPE:ext4,ID_FS_USAGE:filesystem,fsid:c4b1bc5b7d0d2c1c0x,numa_node:-1,queue/logical_block_size:4096,
+ 04-05-2026 16:45:05:151 [pid=3405125 tid=3405125] NOTICE  cufio:285 cuFileHandleRegister GDS not supported or disabled by config, using cuFile posix read/write with compat mode enabled
+ 04-05-2026 16:50:15:446 [pid=3691575 tid=3691575] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 04-05-2026 16:50:15:447 [pid=3691575 tid=3691575] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 04-05-2026 16:50:15:447 [pid=3691575 tid=3691575] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 04-05-2026 16:50:15:554 [pid=3691575 tid=3691575] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 04-05-2026 16:50:15:554 [pid=3691575 tid=3691575] ERROR  cufio-fs:68 mount options not specified for device in mount table /dev/dm-1
+ 04-05-2026 16:50:15:554 [pid=3691575 tid=3691575] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 04-05-2026 16:50:15:554 [pid=3691575 tid=3691575] NOTICE  cufio-fs:456 dumping volume attributes: DEVNAME:/dev/dm-1,ID_FS_TYPE:ext4,ID_FS_USAGE:filesystem,fsid:c4b1bc5b7d0d2c1c0x,numa_node:-1,queue/logical_block_size:4096,
+ 04-05-2026 16:50:15:554 [pid=3691575 tid=3691575] NOTICE  cufio:285 cuFileHandleRegister GDS not supported or disabled by config, using cuFile posix read/write with compat mode enabled
+ 07-05-2026 21:04:57:335 [pid=2023001 tid=2023001] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 07-05-2026 21:04:57:336 [pid=2023001 tid=2023001] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 07-05-2026 21:04:57:336 [pid=2023001 tid=2023001] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 07-05-2026 21:04:57:447 [pid=2023001 tid=2023001] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 07-05-2026 21:04:57:447 [pid=2023001 tid=2023001] ERROR  cufio-fs:68 mount options not specified for device in mount table /dev/dm-1
+ 07-05-2026 21:04:57:447 [pid=2023001 tid=2023001] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 07-05-2026 21:04:57:447 [pid=2023001 tid=2023001] NOTICE  cufio-fs:456 dumping volume attributes: DEVNAME:/dev/dm-1,ID_FS_TYPE:ext4,ID_FS_USAGE:filesystem,fsid:c4b1bc5b7d0d2c1c0x,numa_node:-1,queue/logical_block_size:4096,
+ 07-05-2026 21:04:57:447 [pid=2023001 tid=2023001] NOTICE  cufio:285 cuFileHandleRegister GDS not supported or disabled by config, using cuFile posix read/write with compat mode enabled
+ 07-05-2026 21:09:09:337 [pid=1956395 tid=1956395] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 07-05-2026 21:09:09:338 [pid=1956395 tid=1956395] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 07-05-2026 21:09:09:339 [pid=1956395 tid=1956395] ERROR  cufio-topo-nvfs:78 pci device not present in topology device attribute table: 0000:00:14.3
+ 07-05-2026 21:09:09:449 [pid=1956395 tid=1956395] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 07-05-2026 21:09:09:449 [pid=1956395 tid=1956395] ERROR  cufio-fs:68 mount options not specified for device in mount table /dev/dm-1
+ 07-05-2026 21:09:09:449 [pid=1956395 tid=1956395] ERROR  cufio-fs:268 Unsupported block device: /dev/dm-1
+ 07-05-2026 21:09:09:449 [pid=1956395 tid=1956395] NOTICE  cufio-fs:456 dumping volume attributes: DEVNAME:/dev/dm-1,ID_FS_TYPE:ext4,ID_FS_USAGE:filesystem,fsid:c4b1bc5b7d0d2c1c0x,numa_node:-1,queue/logical_block_size:4096,
+ 07-05-2026 21:09:09:449 [pid=1956395 tid=1956395] NOTICE  cufio:285 cuFileHandleRegister GDS not supported or disabled by config, using cuFile posix read/write with compat mode enabled

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fraud Detection · Triton + XGBoost Demo</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+<div class="page">
+
+  <!-- ── Header ─────────────────────────────────────────────────────────── -->
+  <header>
+    <div class="header-left">
+      <h1>Real-Time Fraud Detection</h1>
+      <p>XGBoost model served by NVIDIA Triton Inference Server</p>
+    </div>
+    <div class="status-bar" id="health-bar">
+      <span class="status-pill status-load"><span class="dot"></span>API</span>
+      <span class="status-pill status-load"><span class="dot"></span>Triton</span>
+      <span class="status-pill status-load"><span class="dot"></span>Model</span>
+    </div>
+  </header>
+
+  <!-- ── Architecture diagram ───────────────────────────────────────────── -->
+  <section id="architecture">
+    <p class="section-title">System Architecture</p>
+    <div class="arch-flow">
+
+      <!-- Browser -->
+      <div class="arch-box highlight">
+        <div class="box-name">Frontend</div>
+        <div class="box-sub">HTML / JavaScript</div>
+        <div class="box-port">:3000 (nginx)</div>
+      </div>
+
+      <div class="arch-arrow">
+        <span class="arch-label">HTTP REST</span>
+        <div class="line"></div>
+        <span class="arch-label">JSON</span>
+      </div>
+
+      <!-- FastAPI -->
+      <div class="arch-box">
+        <div class="box-name">FastAPI</div>
+        <div class="box-sub">Python backend</div>
+        <div class="box-port">:8080</div>
+      </div>
+
+      <div class="arch-arrow">
+        <span class="arch-label">HTTP</span>
+        <div class="line"></div>
+        <span class="arch-label">tritonclient</span>
+      </div>
+
+      <!-- Triton -->
+      <div class="arch-box">
+        <div class="box-name">NVIDIA Triton</div>
+        <div class="box-sub">Inference Server</div>
+        <div class="box-port">:8000 (HTTP) · :8001 (gRPC)</div>
+      </div>
+
+      <div class="arch-arrow">
+        <span class="arch-label">runs</span>
+        <div class="line"></div>
+        <span class="arch-label">Python backend</span>
+      </div>
+
+      <!-- Model -->
+      <div class="arch-box">
+        <div class="box-name">XGBoost Model</div>
+        <div class="box-sub">466 features → fraud prob</div>
+        <div class="box-port">IEEE Fraud Detection</div>
+      </div>
+
+    </div>
+    <!--
+      Why this architecture?
+
+      • Triton owns the model lifecycle: versioning, hot-swap, dynamic batching, GPU scheduling.
+      • FastAPI owns the business logic: auth, feature preprocessing, routing, logging.
+      • The frontend never touches Triton directly — it only knows about the REST API.
+        This decouples the ML infrastructure from the application layer.
+    -->
+  </section>
+
+  <!-- ── Transaction inspector + prediction result ───────────────────────── -->
+  <div class="demo-grid">
+
+    <!-- Left: transaction input -->
+    <div class="card">
+      <p class="section-title">Test Transaction</p>
+
+      <div class="controls">
+        <input type="number" id="tx-index" placeholder="Row index" min="0" />
+        <button class="btn btn-secondary" onclick="loadTransactionByInput()">Load</button>
+        <button class="btn btn-primary"   onclick="loadRandomTransaction()">Random</button>
+      </div>
+
+      <div id="tx-features">
+        <div class="placeholder">
+          Click <em>Random</em> to pick a transaction from the test dataset,<br>
+          or enter a row index (0 – 506 690) and click <em>Load</em>.
+        </div>
+      </div>
+
+      <button class="btn btn-primary btn-large" id="predict-btn"
+              onclick="runPrediction()" disabled>
+        Run Inference →
+      </button>
+    </div>
+
+    <!-- Right: prediction result -->
+    <div class="card">
+      <p class="section-title">Prediction Result</p>
+
+      <div id="result-area">
+        <div class="placeholder">
+          Load a transaction then click<br><em>Run Inference →</em>
+        </div>
+      </div>
+
+      <div style="margin-top:1rem;padding-top:.75rem;border-top:1px solid var(--border)">
+        <p style="font-size:.75rem;color:var(--text-muted)">
+          <strong style="color:var(--text)">What happens when you click Run Inference:</strong><br>
+          1. Browser POSTs to <code>/api/predict/transaction/{index}</code><br>
+          2. FastAPI fetches the row from test_features.parquet<br>
+          3. NaN → -999, cast to FP32<br>
+          4. FastAPI calls <code>triton:8000/v2/models/fraud_detection_xgboost/infer</code><br>
+          5. Triton's Python backend runs <code>xgb.predict_proba()</code><br>
+          6. Fraud probability flows back to the browser
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── Batch performance test ─────────────────────────────────────────── -->
+  <section id="batch-section" class="card">
+    <p class="section-title">Batch Inference Performance</p>
+    <p style="font-size:.82rem;color:var(--text-muted);margin-bottom:.75rem">
+      Send <em>N</em> transactions to Triton in a single request to measure GPU batch throughput.
+      Triton's <strong>dynamic batching</strong> merges concurrent single requests automatically —
+      this test exercises explicit large-batch inference.
+    </p>
+
+    <div class="controls">
+      <label style="font-size:.85rem;color:var(--text-muted)">Transactions:</label>
+      <input type="number" id="batch-size" value="100" min="1" max="5000" style="width:90px" />
+      <button class="btn btn-primary" id="batch-btn" onclick="runBatch()">Run Batch Test</button>
+    </div>
+
+    <div id="batch-stats"></div>
+    <div id="batch-table-wrap"></div>
+  </section>
+
+  <!-- ── API reference ──────────────────────────────────────────────────── -->
+  <section class="card" style="margin-top:1rem">
+    <p class="section-title">API Reference</p>
+    <table style="font-size:.8rem">
+      <thead>
+        <tr>
+          <th>Method</th><th>Endpoint</th><th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td><code>GET</code></td><td><code>/health</code></td><td>API + Triton + model health</td></tr>
+        <tr><td><code>GET</code></td><td><code>/model/info</code></td><td>Model metadata from Triton</td></tr>
+        <tr><td><code>GET</code></td><td><code>/transactions?offset=&amp;limit=</code></td><td>Paginated test transactions</td></tr>
+        <tr><td><code>GET</code></td><td><code>/transactions/random</code></td><td>One random transaction</td></tr>
+        <tr><td><code>GET</code></td><td><code>/transactions/{index}</code></td><td>Transaction by row index (all 466 features)</td></tr>
+        <tr><td><code>POST</code></td><td><code>/predict</code></td><td>Predict from a raw feature vector</td></tr>
+        <tr><td><code>POST</code></td><td><code>/predict/transaction/{index}</code></td><td>Predict a test transaction by index</td></tr>
+        <tr><td><code>POST</code></td><td><code>/predict/batch</code></td><td>Batch predict — one Triton call for N transactions</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:.75rem;color:var(--text-muted);margin-top:.75rem">
+      Interactive docs: <a href="/api/docs" target="_blank">/api/docs</a> (Swagger UI) ·
+      <a href="/api/redoc" target="_blank">/api/redoc</a> (ReDoc)
+    </p>
+  </section>
+
+  <footer>
+    IEEE Fraud Detection dataset · XGBoost 3.x · NVIDIA Triton Inference Server · FastAPI
+  </footer>
+
+</div><!-- .page -->
+
+<div id="toast"></div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
